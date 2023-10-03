@@ -5,6 +5,8 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:SPNP"
         mc:Ignorable="d"
+        Loaded="Window_Loaded"
+        Closed="Window_Closed"
         Title="ThreadingWindow" Height="450" Width="800">
     <StackPanel Orientation="Vertical" HorizontalAlignment="Center">
         <Label Content="Багатопоточність"/>

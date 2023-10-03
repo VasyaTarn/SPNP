@@ -14,5 +14,13 @@
 
         <Button x:Name="SynchroButton" Content="Синхронізація" Margin="20 7" Click="SynchroButton_Click"/>
 
+        <Button x:Name="TaskButton" Content="Багатозадачність" Margin="20 7" Click="TaskButton_Click"/>
+
+        <Button x:Name="CancellingButton" Content="Скасування задач" Margin="20 7" Click="CancellingButton_Click"/>
+
+        <Button x:Name="ProcessButton" Content="Процеси" Margin="20 7" Click="ProcessButton_Click"/>
+
+        <Button x:Name="ChainingButton" Content="Нитки/Продовження" Margin="20 7" Click="ChainingButton_Click"/>
+
     </StackPanel>
 </Window>

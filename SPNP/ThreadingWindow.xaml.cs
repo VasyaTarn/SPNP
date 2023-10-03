@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics.Metrics;
 using System.Linq;
 using System.Text;
 using System.Threading;
@@ -20,9 +21,37 @@ namespace SPNP
     /// </summary>
     public partial class ThreadingWindow : Window
     {
+
+        private static Mutex? mutex;
+        private const string mutexName = "SPNP_TW_MUTEX";
+
         public ThreadingWindow()
         {
+            CheckPreviousLunch();
             InitializeComponent();
+        }
+
+        private void CheckPreviousLunch()
+        {
+            try
+            {
+                mutex = Mutex.OpenExisting(mutexName);
+            }
+            catch { }
+            if (mutex != null)
+            {
+                if (!mutex.WaitOne(1))
+                {
+                    string message = "Запущено інший екземпляр вікна";
+                    MessageBox.Show(message);
+                    mutex = null;
+                    throw new ApplicationException(message);
+                }
+            }
+            else
+            {
+                mutex = new Mutex(true, mutexName);
+            }
         }
 
 
@@ -346,5 +375,14 @@ namespace SPNP
             public CancellationToken CancelToken { get; set; }
         }
 
+        private void Window_Closed(object sender, EventArgs e)
+        {
+            mutex?.ReleaseMutex();
+        }
+
+        private void Window_Loaded(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }
